@@ -1,0 +1,80 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  font-family: "Open Sans", sans-serif;
+}
+
+.flex-calculator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex: 1 0 auto;
+}
+
+.flex-display {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  color: white;
+  font-size: 50px;
+  width: 430px;
+}
+
+.flex-button {
+  display: flex;
+}
+
+.flex-special-button {
+  display: flex;
+}
+
+.button-number,
+.button-number-zero {
+  background-color: #333333;
+  color: white;
+  flex-shrink: 1;
+}
+
+.button-number,
+.button-number-zero,
+.button-functionality,
+.button-operator {
+  display: flex;
+  align-items: center;
+}
+
+.button-number,
+.button-functionality,
+.button-operator {
+  justify-content: center;
+}
+
+.button-number-zero {
+  padding-left: 40px;
+  flex-grow: 3;
+}
+
+.button-operator {
+  background-color: #ff9f0a;
+  color: white;
+}
+
+.button-functionality {
+  background-color: #a5a5a5;
+  color: black;
+}
+
+.button-number,
+.button-operator,
+.button-functionality,
+.button-number-zero {
+  border-style: none;
+  font-size: 45px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+  margin: 10px;
+}
