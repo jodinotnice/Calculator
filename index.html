@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="index.js"></script>
+    <script src="index.js" defer></script>
     <link rel="stylesheet" href="index.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -16,7 +16,7 @@
   <body>
     <div class="flex-calculator">
       <div class="flex-display">
-        <p>Display</p>
+        <p id="display">0</p>
       </div>
       <div class="flex-container-button">
         <div class="flex-button">
@@ -26,27 +26,27 @@
           <button class="button-operator">/</button>
         </div>
         <div class="flex-button">
-          <button class="button-number">7</button>
-          <button class="button-number">8</button>
-          <button class="button-number">9</button>
-          <button class="button-operator">x</button>
+          <button class="button-number" value="7">7</button>
+          <button class="button-number" id="btn" value="8">8</button>
+          <button class="button-number" id="btn" value="9">9</button>
+          <button class="button-operator" id="btn" value="x">x</button>
         </div>
         <div class="flex-button">
-          <button class="button-number">4</button>
-          <button class="button-number">5</button>
-          <button class="button-number">6</button>
-          <button class="button-operator">-</button>
+          <button class="button-number" id="btn" value="4">4</button>
+          <button class="button-number" value="5">5</button>
+          <button class="button-number" value="6">6</button>
+          <button class="button-operator" value="-">-</button>
         </div>
         <div class="flex-button">
-          <button class="button-number">1</button>
-          <button class="button-number">2</button>
-          <button class="button-number">3</button>
-          <button class="button-operator">+</button>
+          <button class="button-number" value="1">1</button>
+          <button class="button-number" value="2">2</button>
+          <button class="button-number" value="3">3</button>
+          <button class="button-operator" value="+">+</button>
         </div>
         <div class="flex-special-button">
-          <button class="button-number-zero">0</button>
-          <button class="button-number">,</button>
-          <button class="button-operator">=</button>
+          <button class="button-number-zero" value="7">0</button>
+          <button class="button-number" value=",">,</button>
+          <button class="button-operator" value="=">=</button>
         </div>
       </div>
     </div>

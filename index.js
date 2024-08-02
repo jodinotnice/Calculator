@@ -50,4 +50,22 @@ console.log(operate(1, "*", 3));
 
 console.log(operate(1, "/", 3));
 
+const display = document.getElementById("display");
 
+const btn = document.querySelectorAll(".button-number");
+
+console.log(btn);
+
+btn.forEach(function (btn) {
+  btn.addEventListener("click", handleClick);
+});
+
+function handleClick(event) {
+  let valueStr = event.target.value;
+
+  if (display.innerText === "0") {
+    display.innerText = valueStr;
+  } else {
+    display.innerText += valueStr;
+  }
+}
