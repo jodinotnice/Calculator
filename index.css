@@ -41,14 +41,18 @@ body {
 .button-number,
 .button-number-zero,
 .button-functionality,
-.button-operator {
+.button-operator,
+.button-operator-equal,
+.button-clear {
   display: flex;
   align-items: center;
 }
 
 .button-number,
 .button-functionality,
-.button-operator {
+.button-operator,
+.button-operator-equal,
+.button-clear {
   justify-content: center;
 }
 
@@ -57,20 +61,24 @@ body {
   flex-grow: 3;
 }
 
-.button-operator {
+.button-operator,
+.button-operator-equal {
   background-color: #ff9f0a;
   color: white;
 }
 
-.button-functionality {
+.button-functionality,
+.button-clear {
   background-color: #a5a5a5;
   color: black;
 }
 
 .button-number,
 .button-operator,
+.button-operator-equal,
 .button-functionality,
-.button-number-zero {
+.button-number-zero,
+.button-clear {
   border-style: none;
   font-size: 45px;
   width: 100px;
