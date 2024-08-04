@@ -1,9 +1,17 @@
+/*
+const math_it_up = {
+  '+': function add (a, b) { return a + b },
+  '-': function substract(a, b) { return a - b },
+  '*': function multiply(a, b) { return a * b },
+  '-': function divide(a, b) { return a / b }
+}​​​​​​​;*/
+
 function add(a, b) {
   const numberA = a;
   const operator = "+";
   const numberB = b;
 
-  return numberA + operator + numberB;
+  return numberA + numberB;
 }
 
 function substract(a, b) {
@@ -11,7 +19,7 @@ function substract(a, b) {
   const operator = "-";
   const numberB = b;
 
-  return numberA + operator + numberB;
+  return numberA - numberB;
 }
 
 function multiply(a, b) {
@@ -19,14 +27,14 @@ function multiply(a, b) {
   const operator = "*";
   const numberB = b;
 
-  return numberA + operator + numberB;
+  return numberA * numberB;
 }
 
 function divide(a, b) {
   const numberA = a;
   const operator = "/";
   const numberB = b;
-  return numberA + operator + numberB;
+  return numberA / numberB;
 }
 
 function operate(a, operator, b) {
@@ -38,6 +46,8 @@ function operate(a, operator, b) {
     return multiply(a, b);
   } else if (operator === "/") {
     return divide(a, b);
+  } else {
+    return alert("relancez un calcul");
   }
 }
 
@@ -57,7 +67,9 @@ const storeOperator = btnOperator.forEach((btn) => {
 
 btnClear.addEventListener("click", handleClickClear);
 
-const storeNumber = btnNumber.forEach(function (btn) {
+// Il faudra la modifier plus tard car pas totalement correcte.
+//Je ne sais pas pourquoi ça fonctionne cela dit, c'est bien là le problème
+btnNumber.forEach(function (btn) {
   btn.addEventListener("click", handleClickNumber);
 });
 
@@ -71,10 +83,29 @@ function clearChange() {
 }
 */
 
+let currentValue = "0";
+let previousValue = "";
+let currentOperator = "";
+
+function handleClickNumber(event) {
+  let valueStr = event.target.value;
+
+  if (currentValue === "0") {
+    currentValue = valueStr;
+  } else if (display.innerText.length < 14) {
+    currentValue += valueStr;
+  }
+
+  display.innerText = currentValue;
+}
+
 function handleClickOperator(event) {
   let valueStr = event.target.value;
 
-  display.innerText += valueStr;
+  previousValue = currentValue;
+  currentOperator = valueStr;
+  currentValue = "0";
+  display.innerText = currentOperator;
 }
 
 function handleClickClear() {
@@ -85,32 +116,35 @@ function handleClickClear() {
   }
 }
 
-function handleClickNumber(event) {
+/*
+function handleClickNumber2(event) {
   let valueStr = event.target.value;
 
-  if (display.innerText === "0") {
+  if (
+    display.innerText === "0" ||
+    display.innerText === "+" ||
+    display.innerText === "-" ||
+    display.innerText === "*" ||
+    display.innerText === "/"
+  ) {
     display.innerText = valueStr;
-  } else {
+  } else if (display.innerText.length < 14) {
     display.innerText += valueStr;
   }
-}
+}*/
 
+console.log();
 //Debut de fonction eval, il faudra trouver un moyen de récuperer les données
 //dans le display avant l'operator pour correspondre à "a" et après pour "b"
 //Si cela fonctionne, il faudra trouver comment effectuer le calcul.
-function eval(a, operator, b) {
-  return operate(a, operator, b);
+
+function eval() {
+  let a = parseFloat(previousValue);
+  let b = parseFloat(currentValue);
+  let result = operate(a, currentOperator, b);
+
+  console.log(typeof currentOperator);
+  display.innerText = result;
 }
 
-eval(1, "-", 6);
-
-function test(number) {
-  console.log(`${number}`);
-}
-
-function testDeTest(string) {
-  test(string);
-  console.log(`${string}`);
-}
-
-testDeTest("string");
+btnOperatorEqual.addEventListener("click", eval);
