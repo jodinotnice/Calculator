@@ -67,8 +67,6 @@ const storeOperator = btnOperator.forEach((btn) => {
 
 btnClear.addEventListener("click", handleClickClear);
 
-// Il faudra la modifier plus tard car pas totalement correcte.
-//Je ne sais pas pourquoi ça fonctionne cela dit, c'est bien là le problème
 btnNumber.forEach(function (btn) {
   btn.addEventListener("click", handleClickNumber);
 });
@@ -115,23 +113,6 @@ function handleClickClear() {
     return (display.innerText = "0");
   }
 }
-
-/*
-function handleClickNumber2(event) {
-  let valueStr = event.target.value;
-
-  if (
-    display.innerText === "0" ||
-    display.innerText === "+" ||
-    display.innerText === "-" ||
-    display.innerText === "*" ||
-    display.innerText === "/"
-  ) {
-    display.innerText = valueStr;
-  } else if (display.innerText.length < 14) {
-    display.innerText += valueStr;
-  }
-}*/
 
 console.log();
 //Debut de fonction eval, il faudra trouver un moyen de récuperer les données
