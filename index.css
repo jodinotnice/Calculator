@@ -32,14 +32,13 @@ body {
 }
 
 .button-number,
-.button-number-zero {
+#button-number-zero {
   background-color: #333333;
   color: white;
   flex-shrink: 1;
 }
 
 .button-number,
-.button-number-zero,
 .button-functionality,
 .button-operator,
 .button-operator-equal,
@@ -56,7 +55,7 @@ body {
   justify-content: center;
 }
 
-.button-number-zero {
+#button-number-zero {
   padding-left: 40px;
   flex-grow: 3;
 }
@@ -77,7 +76,7 @@ body {
 .button-operator,
 .button-operator-equal,
 .button-functionality,
-.button-number-zero,
+#button-number-zero,
 .button-clear {
   border-style: none;
   font-size: 45px;
@@ -85,4 +84,8 @@ body {
   height: 100px;
   border-radius: 50px;
   margin: 10px;
+}
+
+#button-number-zero {
+  justify-content: flex-start;
 }
