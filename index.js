@@ -18,10 +18,8 @@ let currentOperator = "";
 let result = "";
 
 if (currentValue.includes(".")) {
-  document.getElementById("comma").style.visibility = "hidden";
+  comma.disabled = true;
 }
-
-let handleNumberCalled = false;
 
 function add(a, b) {
   const numberA = a;
@@ -92,9 +90,9 @@ function handleClickNumber(event) {
   let valueStr = event.target.value;
 
   comma.addEventListener("click", function () {
-    comma.style.visibility = "hidden";
+    comma.disabled = "true";
   });
-
+  console.log("in handleNumber:", comma.disabled);
   if (currentValue === "0" || currentValue === "Infinity" || result !== "") {
     currentValue = valueStr;
   } else if (display.innerText.length < 14) {
@@ -104,7 +102,6 @@ function handleClickNumber(event) {
   display.innerText = currentValue;
 
   result = "";
-  handleNumberCalled = true;
 }
 
 function handleClickOperator(event) {
@@ -116,7 +113,14 @@ function handleClickOperator(event) {
   currentValue = "0";
   display.innerText = currentOperator;
 
-  comma.style.visibility = "visible";
+  /*btnOperator.forEach(function (btn) {
+    btn.addEventListener("(click", function () {
+      btn.disabled = true;
+    });
+  });*/
+
+  comma.disabled = false;
+  console.log("in handleOperator:", comma.disabled);
 }
 
 function handleClickClear() {
@@ -124,16 +128,22 @@ function handleClickClear() {
   previousValuereviousValue = "";
   currentOperator = "";
   display.innerText = currentValue;
+  comma.disabled = false;
 }
 
-console.log();
 //Debut de fonction eval, il faudra trouver un moyen de récuperer les données
 //dans le display avant l'operator pour correspondre à "a" et après pour "b"
 //Si cela fonctionne, il faudra trouver comment effectuer le calcul.
 
+function ParseFloat(str, val) {
+  str = str.toString();
+  str = str.slice(0, str.indexOf(".") + val + 1);
+  return Number(str);
+}
+
 function eval() {
-  let a = parseFloat(previousValue);
-  let b = parseFloat(currentValue);
+  let a = ParseFloat(previousValue, 2);
+  let b = ParseFloat(currentValue, 2);
 
   if (isNaN(a)) {
     a = 0;
@@ -144,13 +154,12 @@ function eval() {
     result = "Infinity";
   } else {
     result = operate(a, currentOperator, b);
-    result;
   }
 
-  display.innerText = result;
-  currentValue = result;
+  display.innerText = result.toFixed(2);
+  currentValue = result.toFixed(2);
   previousValue = "";
-  comma.style.visibility = "visible";
+  comma.disabled = false;
 }
 
 console.log(display.innerText);
