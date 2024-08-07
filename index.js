@@ -10,9 +10,18 @@ const btnOperator = document.querySelectorAll(".button-operator");
 
 const btnOperatorEqual = document.querySelector(".button-operator-equal");
 
+const comma = document.getElementById("comma");
+
 let currentValue = "0";
 let previousValue = "";
 let currentOperator = "";
+let result = "";
+
+if (currentValue.includes(".")) {
+  document.getElementById("comma").style.visibility = "hidden";
+}
+
+let handleNumberCalled = false;
 
 function add(a, b) {
   const numberA = a;
@@ -41,6 +50,10 @@ function divide(a, b) {
   return numberA / numberB;
 }
 
+/*function infinity(a,b) {
+
+}*/
+
 function operate(a, operator, b) {
   if (operator === "+") {
     return add(a, b);
@@ -48,7 +61,9 @@ function operate(a, operator, b) {
     return substract(a, b);
   } else if (operator === "*") {
     return multiply(a, b);
-  } else if (operator === "/") {
+  } /*else if (operator === "/" && b === "0") {
+    return Infinity(a,b);
+  } */ else if (operator === "/") {
     return divide(a, b);
   }
 }
@@ -76,13 +91,20 @@ function clearChange() {
 function handleClickNumber(event) {
   let valueStr = event.target.value;
 
-  if (currentValue === "0" || currentValue === 0) {
+  comma.addEventListener("click", function () {
+    comma.style.visibility = "hidden";
+  });
+
+  if (currentValue === "0" || currentValue === "Infinity" || result !== "") {
     currentValue = valueStr;
   } else if (display.innerText.length < 14) {
     currentValue += valueStr;
   }
 
   display.innerText = currentValue;
+
+  result = "";
+  handleNumberCalled = true;
 }
 
 function handleClickOperator(event) {
@@ -93,6 +115,8 @@ function handleClickOperator(event) {
 
   currentValue = "0";
   display.innerText = currentOperator;
+
+  comma.style.visibility = "visible";
 }
 
 function handleClickClear() {
@@ -114,16 +138,19 @@ function eval() {
   if (isNaN(a)) {
     a = 0;
     currentOperator = "+";
-  } else if (b === 0) {
-    b = a;
   }
-  let result = operate(a, currentOperator, b);
 
-  console.log(currentValue, previousValue, result, a, b);
+  if (b === 0 && currentOperator === "/") {
+    result = "Infinity";
+  } else {
+    result = operate(a, currentOperator, b);
+    result;
+  }
 
   display.innerText = result;
   currentValue = result;
   previousValue = "";
+  comma.style.visibility = "visible";
 }
 
 console.log(display.innerText);
