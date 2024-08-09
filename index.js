@@ -89,9 +89,9 @@ function clearChange() {
 function handleClickNumber(event) {
   let valueStr = event.target.value;
 
-  comma.addEventListener("click", function () {
+  /*comma.addEventListener("click", function () {
     comma.disabled = "true";
-  });
+  });*/
   console.log("in handleNumber:", comma.disabled);
   if (currentValue === "0" || currentValue === "Infinity" || result !== "") {
     currentValue = valueStr;
@@ -118,7 +118,7 @@ function handleClickOperator(event) {
       btn.disabled = true;
     });
   });*/
-
+  btnOperator.forEach((btn) => (btn.disabled = true));
   comma.disabled = false;
   console.log("in handleOperator:", comma.disabled);
 }
@@ -129,21 +129,23 @@ function handleClickClear() {
   currentOperator = "";
   display.innerText = currentValue;
   comma.disabled = false;
+  btnOperator.forEach((btn) => (btn.disabled = false));
 }
 
 //Debut de fonction eval, il faudra trouver un moyen de récuperer les données
 //dans le display avant l'operator pour correspondre à "a" et après pour "b"
 //Si cela fonctionne, il faudra trouver comment effectuer le calcul.
 
+/*
 function ParseFloat(str, val) {
   str = str.toString();
   str = str.slice(0, str.indexOf(".") + val + 1);
   return Number(str);
-}
+}*/
 
 function eval() {
-  let a = ParseFloat(previousValue, 2);
-  let b = ParseFloat(currentValue, 2);
+  let a = parseFloat(previousValue);
+  let b = parseFloat(currentValue);
 
   if (isNaN(a)) {
     a = 0;
@@ -156,10 +158,17 @@ function eval() {
     result = operate(a, currentOperator, b);
   }
 
-  display.innerText = result.toFixed(2);
-  currentValue = result.toFixed(2);
+  if (result.toString().length > 14) {
+    display.innerText = result.toPrecision(2);
+    currentValue = result.toPrecision(2);
+  } else {
+    display.innerText = result;
+    currentValue = result;
+  }
+
   previousValue = "";
   comma.disabled = false;
+  btnOperator.forEach((btn) => (btn.disabled = false));
 }
 
 console.log(display.innerText);
