@@ -12,6 +12,10 @@ const btnOperatorEqual = document.querySelector(".button-operator-equal");
 
 const comma = document.getElementById("comma");
 
+const btnPositiveNegative = document.getElementById("btn-positive-negative");
+
+const btnPercent = document.getElementById("btn-percent");
+
 let currentValue = "0";
 let previousValue = "";
 let currentOperator = "";
@@ -20,6 +24,8 @@ let result = "";
 if (currentValue.includes(".")) {
   comma.disabled = true;
 }
+
+// Operation Functions
 
 function add(a, b) {
   const numberA = a;
@@ -48,10 +54,6 @@ function divide(a, b) {
   return numberA / numberB;
 }
 
-/*function infinity(a,b) {
-
-}*/
-
 function operate(a, operator, b) {
   if (operator === "+") {
     return add(a, b);
@@ -59,13 +61,12 @@ function operate(a, operator, b) {
     return substract(a, b);
   } else if (operator === "*") {
     return multiply(a, b);
-  } /*else if (operator === "/" && b === "0") {
-    return Infinity(a,b);
-  } */ else if (operator === "/") {
+  } else if (operator === "/") {
     return divide(a, b);
   }
 }
 
+// Buttons Listeners
 const storeOperator = btnOperator.forEach((btn) => {
   btn.addEventListener("click", handleClickOperator);
 });
@@ -75,6 +76,8 @@ btnClear.addEventListener("click", handleClickClear);
 btnNumber.forEach(function (btn) {
   btn.addEventListener("click", handleClickNumber);
 });
+
+//btnPositiveNegative.addEventListener("click", handleClickPositiveNegative);
 
 //Je veux changer le texte du bouton AC en C une fois un chiffre cliqué.
 //On va se contenté de ça pour le moment
@@ -86,14 +89,23 @@ function clearChange() {
 }
 */
 
+// Button handling functions
 function handleClickNumber(event) {
   let valueStr = event.target.value;
 
   /*comma.addEventListener("click", function () {
     comma.disabled = "true";
   });*/
+
   console.log("in handleNumber:", comma.disabled);
-  if (currentValue === "0" || currentValue === "Infinity" || result !== "") {
+
+  /*if (currentOperator === "-" && previousValue.includes("-")) {
+    currentValue = "-" + valueStr;
+  } else*/ if (
+    currentValue === "0" ||
+    currentValue === "Infinity" ||
+    result !== ""
+  ) {
     currentValue = valueStr;
   } else if (display.innerText.length < 14) {
     currentValue += valueStr;
@@ -104,6 +116,13 @@ function handleClickNumber(event) {
   result = "";
 }
 
+/*
+function handleClickPositiveNegative(currentValue) {
+  currentValue * -1;
+  display.innerText = currentValue;
+}
+*/
+
 function handleClickOperator(event) {
   let valueStr = event.target.value;
 
@@ -113,12 +132,7 @@ function handleClickOperator(event) {
   currentValue = "0";
   display.innerText = currentOperator;
 
-  /*btnOperator.forEach(function (btn) {
-    btn.addEventListener("(click", function () {
-      btn.disabled = true;
-    });
-  });*/
-  btnOperator.forEach((btn) => (btn.disabled = true));
+  //btnOperator.forEach((btn) => (btn.disabled = true));
   comma.disabled = false;
   console.log("in handleOperator:", comma.disabled);
 }
