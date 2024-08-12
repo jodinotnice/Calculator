@@ -126,7 +126,6 @@ function handleClickPositiveNegative() {
 }
 
 function handleClickPercent() {
-  /*let number = parseFloat(currentValue);*/
   currentValue /= 100;
   display.innerText = currentValue;
 }
@@ -134,7 +133,7 @@ function handleClickPercent() {
 function handleClickOperator(event) {
   let valueStr = event.target.value;
 
-  if (currentValue.includes("-")) {
+  if (previousValue === "") {
     btnOperator.forEach((btn) => (btn.disabled = true));
   }
 
