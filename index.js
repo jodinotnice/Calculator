@@ -19,6 +19,7 @@ const btnPercent = document.getElementById("btn-percent");
 let currentValue = "0";
 let previousValue = "";
 let currentOperator = "";
+let currentOperation = "";
 let result = "";
 
 if (currentValue.includes(".")) {
@@ -77,7 +78,9 @@ btnNumber.forEach(function (btn) {
   btn.addEventListener("click", handleClickNumber);
 });
 
-//btnPositiveNegative.addEventListener("click", handleClickPositiveNegative);
+btnPositiveNegative.addEventListener("click", handleClickPositiveNegative);
+
+btnPercent.addEventListener("click", handleClickPercent);
 
 //Je veux changer le texte du bouton AC en C une fois un chiffre cliqué.
 //On va se contenté de ça pour le moment
@@ -93,15 +96,16 @@ function clearChange() {
 function handleClickNumber(event) {
   let valueStr = event.target.value;
 
-  /*comma.addEventListener("click", function () {
+  comma.addEventListener("click", function () {
     comma.disabled = "true";
-  });*/
+  });
 
   console.log("in handleNumber:", comma.disabled);
 
-  /*if (currentOperator === "-" && previousValue.includes("-")) {
+  if (currentOperator === "-" && previousValue === "0") {
     currentValue = "-" + valueStr;
-  } else*/ if (
+    previousValue = "";
+  } else if (
     currentValue === "0" ||
     currentValue === "Infinity" ||
     result !== ""
@@ -116,24 +120,33 @@ function handleClickNumber(event) {
   result = "";
 }
 
-/*
-function handleClickPositiveNegative(currentValue) {
-  currentValue * -1;
+function handleClickPositiveNegative() {
+  currentValue *= -1;
   display.innerText = currentValue;
 }
-*/
+
+function handleClickPercent() {
+  /*let number = parseFloat(currentValue);*/
+  currentValue /= 100;
+  display.innerText = currentValue;
+}
 
 function handleClickOperator(event) {
   let valueStr = event.target.value;
 
+  if (currentValue.includes("-")) {
+    btnOperator.forEach((btn) => (btn.disabled = true));
+  }
+
   previousValue = currentValue;
+
   currentOperator = valueStr;
 
   currentValue = "0";
   display.innerText = currentOperator;
 
-  //btnOperator.forEach((btn) => (btn.disabled = true));
   comma.disabled = false;
+
   console.log("in handleOperator:", comma.disabled);
 }
 
