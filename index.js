@@ -82,19 +82,55 @@ btnPositiveNegative.addEventListener("click", handleClickPositiveNegative);
 
 btnPercent.addEventListener("click", handleClickPercent);
 
-//Je veux changer le texte du bouton AC en C une fois un chiffre cliqué.
-//On va se contenté de ça pour le moment
-/*
-function clearChange() {
-  if (display.innerText === "0") {
-    return (btnClear.innerText = "AC");
-  } else btnClear.innerText = "C";
+document.addEventListener("keydown", function (event) {
+  const key = event.key;
+
+  if (key >= 0 && key <= 9) {
+    // Si la touche est un chiffre (0-9)
+    handleClickNumber({ target: { value: key } });
+  } else if (key === "+" || key === "-" || key === "*" || key === "/") {
+    // Si la touche est un opérateur
+    handleClickOperator({ target: { value: key } });
+  } else if (key === "Enter" || key === "=") {
+    // Si la touche est "Enter" ou "=" pour effectuer l'opération
+    eval();
+  } else if (key === ".") {
+    // Si la touche est un point (pour les décimaux)
+    handleClickNumber({ target: { value: key } });
+  } else if (key === "Backspace") {
+    // Récupérer le texte actuel du bouton de suppression/clear
+    const clearButtonText = document.querySelector(".button-clear").innerText;
+
+    if (clearButtonText === "C") {
+      // Si le texte est "C", appeler handleBackspace
+      handleBackspace();
+    } else if (clearButtonText === "AC") {
+      // Si le texte est "AC", appeler handleClickClear
+      handleClickClear();
+    }
+  }
+});
+
+function handleBackspace() {
+  if (currentValue.length > 1) {
+    currentValue = currentValue.slice(0, -1);
+    display.innerText = currentValue;
+  } else if (currentOperator) {
+    currentOperator;
+    display.innerText = currentOperator;
+  } else {
+    currentValue = "0";
+    display.innerText = currentValue;
+  }
 }
-*/
 
 // Button handling functions
 function handleClickNumber(event) {
   let valueStr = event.target.value;
+
+  if (currentValue !== 0 && !result) {
+    btnClear.innerText = "C";
+  }
 
   comma.addEventListener("click", function () {
     comma.disabled = "true";
@@ -153,21 +189,11 @@ function handleClickClear() {
   currentValue = "0";
   previousValuereviousValue = "";
   currentOperator = "";
+
   display.innerText = currentValue;
   comma.disabled = false;
   btnOperator.forEach((btn) => (btn.disabled = false));
 }
-
-//Debut de fonction eval, il faudra trouver un moyen de récuperer les données
-//dans le display avant l'operator pour correspondre à "a" et après pour "b"
-//Si cela fonctionne, il faudra trouver comment effectuer le calcul.
-
-/*
-function ParseFloat(str, val) {
-  str = str.toString();
-  str = str.slice(0, str.indexOf(".") + val + 1);
-  return Number(str);
-}*/
 
 function eval() {
   let a = parseFloat(previousValue);
@@ -195,6 +221,7 @@ function eval() {
   previousValue = "";
   comma.disabled = false;
   btnOperator.forEach((btn) => (btn.disabled = false));
+  btnClear.innerText = "AC";
 }
 
 console.log(display.innerText);

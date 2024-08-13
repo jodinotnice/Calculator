@@ -86,6 +86,25 @@ body {
   margin: 10px;
 }
 
+.button-number:hover,
+#button-number-zero:hover {
+  background-color: hsla(0, 0%, 40%, 1);
+}
+.button-functionality:hover,
+.button-clear:hover {
+  background-color: hsla(0, 0%, 87%, 1);
+}
+
+.button-operator:hover,
+.button-operator-equal:hover {
+  background-color: hsla(36, 100%, 60%, 1);
+}
+
+.button-operator:focus {
+  background-color: white;
+  color: #ffab2e;
+}
+
 #button-number-zero {
   justify-content: flex-start;
 }
